@@ -15,9 +15,9 @@ namespace UrlShortener
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ShortUrl> (builder) =>
+            modelBuilder.Entity<ShortUrl> (builder =>
             {
-                builder.Propety(s => s.Code).HasMaxLength(UrlShortServices.NumberOfCharsInShortLink);
+                builder.Property(s => s.Code).HasMaxLength(UrlShortServices.NumberOfCharsInShortLink);
                 builder.HasIndex(s => s.Code).IsUnique();
             });
         }

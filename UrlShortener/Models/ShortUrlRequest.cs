@@ -1,6 +1,6 @@
 ﻿namespace UrlShortener.Models
 {
-    public class ShortUrl
+    public class ShortUrlRequest
     {
         public string Url { get; set; } = string.Empty;
     }
