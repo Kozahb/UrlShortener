@@ -6,8 +6,8 @@ namespace UrlShortener
 {
     public class AppDbContext : DbContext
     {
-        public AppDbContext(DbContextOptions optioons)
-            : base(optioons) 
+        public AppDbContext(DbContextOptions<AppDbContext> options)
+            : base(options) 
         { 
         }
 
@@ -23,3 +23,4 @@ namespace UrlShortener
         }
     }
 }
+

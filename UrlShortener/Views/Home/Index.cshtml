@@ -1,8 +1,31 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model UrlShortener.Models.ShortUrlRequest
+
+@{
+    ViewData["Title"] = "Encurtador URL";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Encurtador de URL</h2>
+
+    <form asp-action="Shorten" method="post">
+        <div class="form-group">
+            <label for="Url">Cole a Url longa:</label>
+            <input asp-for="Url" class="form-control" placeholder="https://exemplo.com" />
+            <span asp-validation-for="Url" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary mt-3">Encurtar</button>
+    </form>
+
+    @if (ViewBag.ShortUrl != null)
+    {
+        <div class="alert alert-success mt-4">
+            Url encurtada: <a href="@ViewBag.ShortUrl"  target="_blank">@ViewBag.ShortUrl</a>
+        </div>
+    }
 </div>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
