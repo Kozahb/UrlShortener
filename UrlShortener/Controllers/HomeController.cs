@@ -39,18 +39,22 @@ namespace UrlShortener.Controllers
                 Id = Guid.NewGuid(),
                 LongUrl = request.Url,
                 Code = code,
-                ShortUrls = $"{Request.Scheme}: //{Request.Host}/api/{code}",
-                CreatedOnUtc = DateTime.UtcNow
+                ShortUrls = $"{Request.Scheme}://{Request.Host}/api/{code}",
+                CreatedOnUtc = DateTime.UtcNow,
+                ExpirationDateUtc = DateTime.UtcNow.AddDays(15)
             };
 
             dbContext.ShortUrls.Add(shortUrl);
             await dbContext.SaveChangesAsync();
 
             ViewBag.ShortUrl = shortUrl.ShortUrls;
+            ViewBag.ExpirationDate = shortUrl.ExpirationDateUtc?.ToString("dd/MM/yyyy HH:mm") ?? "Sem data de expiração";
+
             return View("Index");
 
         }
-    
+
+          
         
     }
 }

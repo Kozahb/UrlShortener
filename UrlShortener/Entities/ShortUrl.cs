@@ -10,5 +10,7 @@ namespace UrlShortener.Entities
         public string Code { get; set; } = string.Empty;    
 
         public DateTime CreatedOnUtc { get; set; }
+
+        public DateTime? ExpirationDateUtc { get; set; }
     }
 }

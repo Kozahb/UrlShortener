@@ -19,9 +19,11 @@
     @if (ViewBag.ShortUrl != null)
     {
         <div class="alert alert-success mt-4">
-            Url encurtada: <a href="@ViewBag.ShortUrl"  target="_blank">@ViewBag.ShortUrl</a>
+            Url encurtada: <a href="@ViewBag.ShortUrl" target="_blank"> @ViewBag.ShortUrl</a><br />
+            <small>Válida até: @ViewBag.ExpirationDate</small>
         </div>
     }
+
 </div>
 
 @section Scripts{

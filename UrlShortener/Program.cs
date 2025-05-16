@@ -48,8 +48,9 @@ app.MapPost("api/shorten", async (
         Id = Guid.NewGuid(),
         LongUrl = request.Url,
         Code = code,
-        ShortUrls = $"{httpContext.Request.Scheme}: //{httpContext.Request.Host}/api/{code}",
-        CreatedOnUtc = DateTime.UtcNow
+        ShortUrls = $"{httpContext.Request.Scheme}://{httpContext.Request.Host}/api/{code}",
+        CreatedOnUtc = DateTime.UtcNow,
+        ExpirationDateUtc = DateTime.UtcNow.AddDays(15),
     };
 
     dbContext.ShortUrls.Add(shortUrl); 
@@ -62,14 +63,19 @@ app.MapPost("api/shorten", async (
 
 app.MapGet("api/{code}", async (string code, AppDbContext dbContext) =>
 {
-    var shorUrl = await dbContext.ShortUrls.FirstOrDefaultAsync(s => s.Code == code);
+    var shortUrl = await dbContext.ShortUrls.FirstOrDefaultAsync(s => s.Code == code);
 
-    if (shorUrl is null)
+    if (shortUrl is null)
     {
-        return Results.NotFound();
+        return Results.NotFound("URL não encontrada.");
     }
 
-    return Results.Redirect(shorUrl.LongUrl);  
+    if (shortUrl.ExpirationDateUtc.HasValue && DateTime.UtcNow > shortUrl.ExpirationDateUtc.Value)
+    {
+        return Results.BadRequest("Este link expirou.");
+    }
+
+    return Results.Redirect(shortUrl.LongUrl);  
 });
 
 app.UseHttpsRedirection();

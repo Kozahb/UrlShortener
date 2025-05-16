@@ -18,5 +18,46 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    background: #f0f2f5;
+    margin-bottom: 60px;
+}
+
+
+.fade-in {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeInUp 0.6s ease-out forwards;
+
+}
+
+@keyframes fadeInUp{
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', sans-serif;
+    animation: fadeIn 1s ease-in-out;
+}
+
+h2 {
+    color: #007bff;
+    text-align: center;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.alert-success {
+    background-color: #d1e7dd;
+    border: 1px solid #badbcc;
 }
